@@ -126,3 +126,10 @@ footer {
     border-top: 2px solid #ffeb3b;
 
 }
+
+.welcome-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+

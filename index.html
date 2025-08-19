@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Escores para TEV</title>
+
+    <meta name="theme-color" content="#ffffff">
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Avaliação de Risco para TEV</h1>
+    </header>
+
+    <main class="container">
+
+        <section class="step" id="welcome-step">
+            <h2>Bem-vindo(a)</h2>
+            <p>Utilize esta ferramenta para auxiliar na avaliação de risco de Trombose Venosa Profunda (TVP) e Embolia Pulmonar (TEP).</p>
+            <button id="start-btn">Iniciar Avaliação</button>
+        </section>
+
+        <section class="step hidden" id="suspicion-step">
+            <h2>Qual a suspeita clínica principal?</h2>
+            <form id="suspicion-form">
+                <div class="criterion">
+                    <input type="radio" id="suspeita-tep" name="suspicion-choice">
+                    <label for="suspeita-tep">Embolia Pulmonar (TEP)</label>
+                </div>
+                <div class="criterion">
+                    <input type="radio" id="suspeita-tvp" name="suspicion-choice">
+                    <label for="suspeita-tvp">Trombose Venosa Profunda (TVP)</label>
+                </div>
+            </form>
+            <button id="select-suspicion-btn">Continuar</button>
+        </section>
+
+        <section class="step hidden" id="tep-questions-step">
+            <h2>Questionário de Risco (TEP)</h2>
+            <p>Selecione as condições aplicáveis para o paciente:</p>
+            <form id="tep-form">
+                <div class="criterion"><input type="checkbox" id="tep-cancer"><label for="tep-cancer">Câncer ativo</label></div>
+                <div class="criterion"><input type="checkbox" id="tep-hemoptise"><label for="tep-hemoptise">Hemoptise</label></div>
+                <div class="criterion"><input type="checkbox" id="tep-historia-prev"><label for="tep-historia-prev">História prévia de TVP ou TEP</label></div>
+                <div class="criterion"><input type="checkbox" id="tep-cirurgia-recente"><label for="tep-cirurgia-recente">Cirurgia ou imobilização/fratura recente</label></div>
+                <div class="criterion"><input type="checkbox" id="tep-outra-doenca"><label for="tep-outra-doenca">Diagnóstico alternativo menos provável que TEP</label></div>
+                <div class="criterion"><input type="checkbox" id="tep-taquicardia-100"><label for="tep-taquicardia-100">Frequência cardíaca > 100 bpm</label></div>
+                <div class="criterion"><input type="checkbox" id="tep-taquicardia-75"><label for="tep-taquicardia-75">Frequência cardíaca entre 75-99 bpm</label></div>
+                <div class="criterion"><input type="checkbox" id="tep-sinais-tvp"><label for="tep-sinais-tvp">Sinais/sintomas de TVP em membros inferiores</label></div>
+                <div class="criterion"><input type="checkbox" id="tep-idade"><label for="tep-idade">Idade > 65 anos</label></div>
+                <button type="button" id="calculate-tep-btn">Ver Resultados</button>
+            </form>
+        </section>
+
+        <section class="step hidden" id="tvp-questions-step">
+            <h2>Questionário de Wells (TVP)</h2>
+            <p>Selecione os critérios aplicáveis para o paciente:</p>
+            <form id="tvp-form">
+                <div class="criterion"><input type="checkbox" id="tvp-cancer"><label for="tvp-cancer">Câncer ativo</label></div>
+                <div class="criterion"><input type="checkbox" id="tvp-imobilizacao"><label for="tvp-imobilizacao">Paralisia, paresia ou imobilização</label></div>
+                <div class="criterion"><input type="checkbox" id="tvp-acamado"><label for="tvp-acamado">Acamado > 3 dias ou cirurgia grande nas últimas 4 semanas</label></div>
+                <div class="criterion"><input type="checkbox" id="tvp-dor-veia"><label for="tvp-dor-veia">Dor localizada ao longo da distribuição da veia profunda</label></div>
+                <div class="criterion"><input type="checkbox" id="tvp-inchaco"><label for="tvp-inchaco">Inchaço de toda a perna</label></div>
+                <div class="criterion"><input type="checkbox" id="tvp-edema-3cm"><label for="tvp-edema-3cm">Edema de panturrilha (> 3 cm unilateralmente)</label></div>
+                <div class="criterion"><input type="checkbox" id="tvp-edema-cacifo"><label for="tvp-edema-cacifo">Edema com cacifo unilateral</label></div>
+                <div class="criterion"><input type="checkbox" id="tvp-veias-colaterais"><label for="tvp-veias-colaterais">Veias superficiais colaterais não varicosas</label></div>
+                <div class="criterion"><input type="checkbox" id="tvp-historia-prev"><label for="tvp-historia-prev">História prévia de TVP</label></div>
+                <div class="criterion"><input type="checkbox" id="tvp-diagnostico-alternativo"><label for="tvp-diagnostico-alternativo">Diagnóstico alternativo mais provável que TVP</label></div>
+                <button type="button" id="calculate-tvp-btn">Ver Resultados</button>
+            </form>
+        </section>
+
+        <section class="step hidden" id="results-step">
+            <h2>Resultados da Avaliação</h2>
+            <div class="result-container" id="tep-results" style="display:none;">
+                <div class="result-box">
+                    <h3>Escore de Wells</h3>
+                    <p>Pontuação: <span id="wells-score">0</span></p>
+                    <p>Classificação de Risco: <strong id="wells-risk"></strong></p>
+                </div>
+                <div class="result-box">
+                    <h3>Escore de Genebra</h3>
+                    <p>Pontuação: <span id="geneva-score">0</span></p>
+                    <p>Classificação de Risco: <strong id="geneva-risk"></strong></p>
+                </div>
+            </div>
+            <div class="result-container" id="tvp-results" style="display:none;">
+                <div class="result-box full-width">
+                    <h3>Escore de Wells (TVP)</h3>
+                    <p>Pontuação: <span id="wells-tvp-score">0</span></p>
+                    <p>Classificação de Risco: <strong id="wells-tvp-risk"></strong></p>
+                </div>
+            </div>
+
+            <div class="next-steps-guidance" id="next-steps-guidance">
+                </div>
+
+            <button id="restart-btn">Reiniciar Avaliação</button>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Ferramenta de apoio, não substitui a avaliação clínica.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

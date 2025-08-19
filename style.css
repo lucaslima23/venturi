@@ -55,14 +55,30 @@ header h1 {
 }
 
 button {
-    background-color: #ffeb3b;
-    color: #121212;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+  background-color: #ffeb3b;
+  color: #121212;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  text-align: center;
+  outline: none;
+}
+
+button:hover {
+  background-color: #f5d419;
+  color: #222;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+}
+
+button:active {
+  background-color: #ffe066;
+  color: #444;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
 }
 
 button:hover {
@@ -132,4 +148,5 @@ footer {
     flex-direction: column;
     align-items: center;
 }
+
 

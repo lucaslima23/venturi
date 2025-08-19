@@ -11,7 +11,7 @@ body {
 
 header {
     background-color: #1e1e1e; /* Cinza escuro um pouco mais claro para o cabeçalho */
-    color: #ffeb3b; /* A cor dourada do logo, para destaque */
+    color: #f9f499; /* A cor dourada do logo, para destaque */
     padding: 1rem 2rem;
     text-align: center;
     border-bottom: 2px solid #ffeb3b;
@@ -124,4 +124,5 @@ footer {
     padding: 1rem 2rem;
     font-size: 0.9rem;
     border-top: 2px solid #ffeb3b;
+
 }

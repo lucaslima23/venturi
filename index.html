@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Escores para TEV</title>
+    <title>Calculadora de Escores TEV</title>
 
     <meta name="theme-color" content="#ffffff">
     <link rel="manifest" href="manifest.json">
@@ -19,9 +19,16 @@
     <main class="container">
 
         <section class="step" id="welcome-step">
-            <h2>Bem-vindo(a)</h2>
-            <p>Utilize esta ferramenta para auxiliar na avaliação de risco de Trombose Venosa Profunda (TVP) e Embolia Pulmonar (TEP).</p>
-            <button id="start-btn">Iniciar Avaliação</button>
+            <div class="welcome-content">
+                <img src="/images/sua-logo.png" alt="Logo Venturi" class="logo">
+                <button id="start-btn">Iniciar Avaliação</button>
+                <div class="description-box">
+                    <h2>Sobre esta Ferramenta</h2>
+                    <p>Esta ferramenta foi desenvolvida para auxiliar profissionais de saúde na avaliação do risco de Tromboembolismo Venoso (TEV).</p>
+                    <p>Baseia-se nos protocolos clínicos estabelecidos pelos escores de Wells e de Genebra para a estratificação de risco de Embolia Pulmonar (TEP) e no escore de Wells para Trombose Venosa Profunda (TVP).</p>
+                    <p>Desenvolvido pelo grupo de pesquisa Venturi, da Universidade Federal do Acre.</p>
+                </div>
+            </div>
         </section>
 
         <section class="step hidden" id="suspicion-step">

@@ -1,3 +1,16 @@
+// Registra o Service Worker
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('Service Worker registrado com sucesso:', registration.scope);
+            })
+            .catch(error => {
+                console.log('Falha no registro do Service Worker:', error);
+            });
+    });
+}
+
 // --- 1. Seleção de Elementos e Variáveis de Estado ---
 const steps = document.querySelectorAll('.step');
 const welcomeStep = document.getElementById('welcome-step');
@@ -16,7 +29,6 @@ let suspicionChoice = '';
 
 // --- 2. Funções de Navegação ---
 
-// Função principal para exibir a etapa correta
 function showStep(stepToShow) {
     steps.forEach(step => {
         step.classList.add('hidden');
@@ -46,7 +58,7 @@ selectSuspicionBtn.addEventListener('click', () => {
 });
 
 restartBtn.addEventListener('click', () => {
-    location.reload(); // A forma mais simples de resetar tudo para o estado inicial
+    location.reload();
 });
 
 // --- 4. Lógica de Cálculo dos Escores ---
@@ -92,27 +104,21 @@ calculateTvpBtn.addEventListener('click', () => {
 function displayResults(score1, score2) {
     showStep(resultsStep);
     
-    // Esconder ambos os containers de resultado para mostrar apenas o correto
     document.getElementById('tep-results').style.display = 'none';
     document.getElementById('tvp-results').style.display = 'none';
 
     if (suspicionChoice === 'tep') {
         document.getElementById('tep-results').style.display = 'flex';
         
-        // Escore de Wells
         let wellsRisk = '';
-        let wellsNextSteps = '';
         if (score1 <= 4) {
             wellsRisk = 'Baixo Risco';
-            wellsNextSteps = 'Realizar dosagem de D-Dímero. Se for negativo, TEP é improvável. Se for positivo, prosseguir para Angio-TC de Tórax.';
         } else {
             wellsRisk = 'Alto Risco';
-            wellsNextSteps = 'Prosseguir diretamente para Angio-TC de Tórax.';
         }
         document.getElementById('wells-score').textContent = score1;
         document.getElementById('wells-risk').textContent = wellsRisk;
         
-        // Escore de Genebra
         let genevaRisk = '';
         if (score2 <= 3) {
             genevaRisk = 'Baixo Risco';
@@ -124,7 +130,6 @@ function displayResults(score1, score2) {
         document.getElementById('geneva-score').textContent = score2;
         document.getElementById('geneva-risk').textContent = genevaRisk;
         
-        // Orientação de conduta unificada
         document.getElementById('next-steps-guidance').innerHTML = `
             <h3>Próximos Passos (TEP)</h3>
             <p>Com base na sua avaliação, a conduta clínica recomendada é:</p>
@@ -138,13 +143,10 @@ function displayResults(score1, score2) {
         document.getElementById('tvp-results').style.display = 'block';
 
         let tvpRisk = '';
-        let tvpNextSteps = '';
         if (score1 >= 2) {
             tvpRisk = 'Provável';
-            tvpNextSteps = 'Prosseguir diretamente para Eco-Doppler Venoso de Membros Inferiores.';
         } else {
             tvpRisk = 'Improvável';
-            tvpNextSteps = 'Realizar dosagem de D-Dímero. Se for negativo, TVP é improvável. Se for positivo, prosseguir para Eco-Doppler Venoso.';
         }
         document.getElementById('wells-tvp-score').textContent = score1;
         document.getElementById('wells-tvp-risk').textContent = tvpRisk;

@@ -42,18 +42,19 @@ startBtn.addEventListener('click', () => {
     showStep(suspicionStep);
 });
 
-selectSuspicionBtn.addEventListener('click', () => {
-    const tepRadio = document.getElementById('suspeita-tep');
-    const tvpRadio = document.getElementById('suspeita-tvp');
+const tepRadio = document.getElementById('suspeita-tep');
+const tvpRadio = document.getElementById('suspeita-tvp');
 
+tepRadio.addEventListener('change', () => {
     if (tepRadio.checked) {
         suspicionChoice = 'tep';
         showStep(tepQuestionsStep);
-    } else if (tvpRadio.checked) {
+    }
+});
+tvpRadio.addEventListener('change', () => {
+    if (tvpRadio.checked) {
         suspicionChoice = 'tvp';
         showStep(tvpQuestionsStep);
-    } else {
-        alert('Por favor, selecione uma suspeita clínica.');
     }
 });
 
@@ -161,3 +162,4 @@ function displayResults(score1, score2) {
         `;
     }
 }
+

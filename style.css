@@ -218,6 +218,23 @@ form {
 }
 
 
+.description-box {
+  font-size: 0.85rem;        /* texto menor */
+  color: #888;               /* cor discreta */
+  text-align: center;
+  margin-top: 2rem;          /* espaçamento superior */
+  margin-bottom: 1.5rem;     /* espaçamento inferior */
+}
+
+.description-box h2 {
+  font-size: 1.05rem;        /* título menor */
+  margin-bottom: 0.5rem;
+}
+
+.description-box p {
+  margin: 0.4rem 0;
+  font-size: 0.85rem;        /* texto menor */
+}
 
 
 

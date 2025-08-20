@@ -174,14 +174,14 @@ footer {
 
 /* Hover: cinza bem suave */
 .criterion label:hover {
-  background-color: #f3f3f3;
+  background-color: #DCDCDC;
   color: #222;
 }
 
 /* Selecionado: cinza claro */
 .criterion input[type="radio"]:checked + label,
 .criterion input[type="checkbox"]:checked + label {
-  background-color: #e0e0e0;
+  background-color: #DAA520;
   color: #222;
   border: 1.5px solid #bbb;
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
@@ -203,6 +203,7 @@ form {
   display: flex;
   justify-content: center;
 }
+
 
 
 

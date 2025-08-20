@@ -108,58 +108,44 @@ function displayResults(score1, score2) {
     document.getElementById('tep-results').style.display = 'none';
     document.getElementById('tvp-results').style.display = 'none';
 
-    if (suspicionChoice === 'tep') {
-        document.getElementById('tep-results').style.display = 'flex';
-        
-        let wellsRisk = '';
-        if (score1 <= 4) {
-            wellsRisk = 'Baixo Risco';
-        } else {
-            wellsRisk = 'Alto Risco';
-        }
-        document.getElementById('wells-score').textContent = score1;
-        document.getElementById('wells-risk').textContent = wellsRisk;
-        
-        let genevaRisk = '';
-        if (score2 <= 3) {
-            genevaRisk = 'Baixo Risco';
-        } else if (score2 <= 10) {
-            genevaRisk = 'Risco Intermediário';
-        } else {
-            genevaRisk = 'Alto Risco';
-        }
-        document.getElementById('geneva-score').textContent = score2;
-        document.getElementById('geneva-risk').textContent = genevaRisk;
-        
-        document.getElementById('next-steps-guidance').innerHTML = `
-            <h3>Próximos Passos (TEP)</h3>
-            <p>Com base na sua avaliação, a conduta clínica recomendada é:</p>
-            <ul>
-                <li><strong>Se escore de Wells for Baixo Risco:</strong> Realizar dosagem de D-Dímero. Se for negativo, TEP é improvável. Se for positivo, prosseguir para Angio-TC de Tórax.</li>
-                <li><strong>Se escore de Wells for Alto Risco:</strong> Prosseguir diretamente para Angio-TC de Tórax.</li>
-            </ul>
+if (suspicionChoice === 'tep') {
+    // ... cálculo do wellsRisk/genevaRisk ...
+    let conduta = "";
+    if (wellsRisk === 'Baixo Risco') {
+        conduta = `
+            <strong>Conduta:</strong> Realizar dosagem de D-Dímero.<br>
+            Se negativo: TEP improvável.<br>
+            Se positivo: prosseguir para Angio-TC de Tórax.
         `;
-
-    } else if (suspicionChoice === 'tvp') {
-        document.getElementById('tvp-results').style.display = 'block';
-
-        let tvpRisk = '';
-        if (score1 >= 2) {
-            tvpRisk = 'Provável';
-        } else {
-            tvpRisk = 'Improvável';
-        }
-        document.getElementById('wells-tvp-score').textContent = score1;
-        document.getElementById('wells-tvp-risk').textContent = tvpRisk;
-
-        document.getElementById('next-steps-guidance').innerHTML = `
-            <h3>Próximos Passos (TVP)</h3>
-            <p>Com base na sua avaliação, a conduta clínica recomendada é:</p>
-            <ul>
-                <li><strong>Se escore for Provável:</strong> Prosseguir diretamente para Eco-Doppler Venoso de Membros Inferiores.</li>
-                <li><strong>Se escore for Improvável:</strong> Realizar dosagem de D-Dímero. Se for negativo, TVP é improvável. Se for positivo, prosseguir para Eco-Doppler Venoso.</li>
-            </ul>
+    } else {
+        conduta = `
+            <strong>Conduta:</strong> Prosseguir diretamente para Angio-TC de Tórax.
         `;
     }
+
+    document.getElementById('next-steps-guidance').innerHTML = `
+        <h3>Próximos Passos (TEP)</h3>
+        <p>${conduta}</p>
+    `;
+} else if (suspicionChoice === 'tvp') {
+    let conduta = "";
+    if (tvpRisk === 'Provável') {
+        conduta = `
+            <strong>Conduta:</strong> Prosseguir diretamente para Eco-Doppler Venoso de Membros Inferiores.
+        `;
+    } else {
+        conduta = `
+            <strong>Conduta:</strong> Realizar dosagem de D-Dímero.<br>
+            Se negativo: TVP improvável.<br>
+            Se positivo: prosseguir para Eco-Doppler Venoso.
+        `;
+    }
+
+    document.getElementById('next-steps-guidance').innerHTML = `
+        <h3>Próximos Passos (TVP)</h3>
+        <p>${conduta}</p>
+    `;
 }
+}
+
 

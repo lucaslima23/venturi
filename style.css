@@ -188,7 +188,10 @@ footer {
 }
 
 .criterion label {
-  min-width: 400px;
+  width: 100%;
+  max-width: 480px; /* ou outro valor, para limitar em telas grandes */
+  min-width: 120px; /* opcional, para não ficarem muito pequenos */
+  box-sizing: border-box;
   text-align: center;
 }
 
@@ -199,10 +202,21 @@ form {
 }
 
 .criterion {
-  width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
 }
+
+@media (max-width: 600px) {
+  .criterion label {
+    max-width: 98vw;
+    font-size: 1rem;
+    padding: 0.6rem 0.2rem;
+  }
+}
+
 
 
 

@@ -183,17 +183,3 @@ function displayResults(score1, score2) {
     }
 }
 
-// --- 6. Uniformizar largura dos botões de critérios ---
-document.addEventListener("DOMContentLoaded", function() {
-    const labels = document.querySelectorAll('.criterion label');
-    let maxWidth = 0;
-    labels.forEach(label => {
-        // Reset width for correct measurement
-        label.style.width = 'auto';
-        const width = label.offsetWidth;
-        if (width > maxWidth) maxWidth = width;
-    });
-    labels.forEach(label => {
-        label.style.width = maxWidth + "px";
-    });
-});

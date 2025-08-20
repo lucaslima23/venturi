@@ -188,7 +188,7 @@ footer {
 }
 
 .criterion label {
-  min-width: 220px;
+  min-width: 320px;
   text-align: center;
 }
 
@@ -203,6 +203,7 @@ form {
   display: flex;
   justify-content: center;
 }
+
 
 
 

@@ -187,6 +187,11 @@ footer {
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
 }
 
+.criterion label {
+  min-width: 220px;
+  text-align: center;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -198,6 +203,7 @@ form {
   display: flex;
   justify-content: center;
 }
+
 
 
 

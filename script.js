@@ -20,7 +20,6 @@ const tvpQuestionsStep = document.getElementById('tvp-questions-step');
 const resultsStep = document.getElementById('results-step');
 
 const startBtn = document.getElementById('start-btn');
-const selectSuspicionBtn = document.getElementById('select-suspicion-btn');
 const calculateTepBtn = document.getElementById('calculate-tep-btn');
 const calculateTvpBtn = document.getElementById('calculate-tvp-btn');
 const restartBtn = document.getElementById('restart-btn');
@@ -28,7 +27,6 @@ const restartBtn = document.getElementById('restart-btn');
 let suspicionChoice = '';
 
 // --- 2. Funções de Navegação ---
-
 function showStep(stepToShow) {
     steps.forEach(step => {
         step.classList.add('hidden');
@@ -37,11 +35,11 @@ function showStep(stepToShow) {
 }
 
 // --- 3. Event Listeners para a Navegação ---
-
 startBtn.addEventListener('click', () => {
     showStep(suspicionStep);
 });
 
+// Avança automaticamente ao marcar TEP ou TVP
 const tepRadio = document.getElementById('suspeita-tep');
 const tvpRadio = document.getElementById('suspeita-tvp');
 
@@ -68,7 +66,7 @@ calculateTepBtn.addEventListener('click', () => {
     let wellsScore = 0;
     let genevaScore = 0;
 
-    // Lógica para TEP (Wells e Genebra)
+    // Wells e Genebra para TEP
     if (document.getElementById('tep-cancer').checked) { wellsScore += 1; genevaScore += 1; }
     if (document.getElementById('tep-hemoptise').checked) { wellsScore += 1; genevaScore += 1; }
     if (document.getElementById('tep-historia-prev').checked) { wellsScore += 1; genevaScore += 3; }
@@ -85,7 +83,7 @@ calculateTepBtn.addEventListener('click', () => {
 calculateTvpBtn.addEventListener('click', () => {
     let tvpScore = 0;
 
-    // Lógica para TVP (Wells)
+    // Wells para TVP
     if (document.getElementById('tvp-cancer').checked) { tvpScore += 1; }
     if (document.getElementById('tvp-imobilizacao').checked) { tvpScore += 1; }
     if (document.getElementById('tvp-acamado').checked) { tvpScore += 1; }
@@ -104,48 +102,98 @@ calculateTvpBtn.addEventListener('click', () => {
 
 function displayResults(score1, score2) {
     showStep(resultsStep);
-    
+
     document.getElementById('tep-results').style.display = 'none';
     document.getElementById('tvp-results').style.display = 'none';
 
-if (suspicionChoice === 'tep') {
-    // ... cálculo do wellsRisk/genevaRisk ...
-    let conduta = "";
-    if (wellsRisk === 'Baixo Risco') {
-        conduta = `
-            <strong>Conduta:</strong> Realizar dosagem de D-Dímero.<br>
-            Se negativo: TEP improvável.<br>
-            Se positivo: prosseguir para Angio-TC de Tórax.
+    if (suspicionChoice === 'tep') {
+        document.getElementById('tep-results').style.display = 'flex';
+
+        // Wells
+        let wellsRisk = '';
+        if (score1 <= 4) {
+            wellsRisk = 'Baixo Risco';
+        } else {
+            wellsRisk = 'Alto Risco';
+        }
+        document.getElementById('wells-score').textContent = score1;
+        document.getElementById('wells-risk').textContent = wellsRisk;
+
+        // Geneva
+        let genevaRisk = '';
+        if (score2 <= 3) {
+            genevaRisk = 'Baixo Risco';
+        } else if (score2 <= 10) {
+            genevaRisk = 'Risco Intermediário';
+        } else {
+            genevaRisk = 'Alto Risco';
+        }
+        document.getElementById('geneva-score').textContent = score2;
+        document.getElementById('geneva-risk').textContent = genevaRisk;
+
+        // Conduta específica
+        let conduta = '';
+        if (wellsRisk === 'Baixo Risco') {
+            conduta = `
+                <strong>Conduta:</strong> Realizar dosagem de D-Dímero.<br>
+                Se negativo: TEP improvável.<br>
+                Se positivo: prosseguir para Angio-TC de Tórax.
+            `;
+        } else {
+            conduta = `
+                <strong>Conduta:</strong> Prosseguir diretamente para Angio-TC de Tórax.
+            `;
+        }
+
+        document.getElementById('next-steps-guidance').innerHTML = `
+            <h3>Próximos Passos (TEP)</h3>
+            <p>${conduta}</p>
         `;
-    } else {
-        conduta = `
-            <strong>Conduta:</strong> Prosseguir diretamente para Angio-TC de Tórax.
+
+    } else if (suspicionChoice === 'tvp') {
+        document.getElementById('tvp-results').style.display = 'block';
+
+        // Wells TVP
+        let tvpRisk = '';
+        if (score1 >= 2) {
+            tvpRisk = 'Provável';
+        } else {
+            tvpRisk = 'Improvável';
+        }
+        document.getElementById('wells-tvp-score').textContent = score1;
+        document.getElementById('wells-tvp-risk').textContent = tvpRisk;
+
+        let conduta = '';
+        if (tvpRisk === 'Provável') {
+            conduta = `
+                <strong>Conduta:</strong> Prosseguir diretamente para Eco-Doppler Venoso de Membros Inferiores.
+            `;
+        } else {
+            conduta = `
+                <strong>Conduta:</strong> Realizar dosagem de D-Dímero.<br>
+                Se negativo: TVP improvável.<br>
+                Se positivo: prosseguir para Eco-Doppler Venoso.
+            `;
+        }
+
+        document.getElementById('next-steps-guidance').innerHTML = `
+            <h3>Próximos Passos (TVP)</h3>
+            <p>${conduta}</p>
         `;
     }
-
-    document.getElementById('next-steps-guidance').innerHTML = `
-        <h3>Próximos Passos (TEP)</h3>
-        <p>${conduta}</p>
-    `;
-} else if (suspicionChoice === 'tvp') {
-    let conduta = "";
-    if (tvpRisk === 'Provável') {
-        conduta = `
-            <strong>Conduta:</strong> Prosseguir diretamente para Eco-Doppler Venoso de Membros Inferiores.
-        `;
-    } else {
-        conduta = `
-            <strong>Conduta:</strong> Realizar dosagem de D-Dímero.<br>
-            Se negativo: TVP improvável.<br>
-            Se positivo: prosseguir para Eco-Doppler Venoso.
-        `;
-    }
-
-    document.getElementById('next-steps-guidance').innerHTML = `
-        <h3>Próximos Passos (TVP)</h3>
-        <p>${conduta}</p>
-    `;
-}
 }
 
-
+// --- 6. Uniformizar largura dos botões de critérios ---
+document.addEventListener("DOMContentLoaded", function() {
+    const labels = document.querySelectorAll('.criterion label');
+    let maxWidth = 0;
+    labels.forEach(label => {
+        // Reset width for correct measurement
+        label.style.width = 'auto';
+        const width = label.offsetWidth;
+        if (width > maxWidth) maxWidth = width;
+    });
+    labels.forEach(label => {
+        label.style.width = maxWidth + "px";
+    });
+});

@@ -3,13 +3,13 @@ const CACHE_NAME = 'tev-calculator-v1';
 
 // Lista de todos os arquivos que o Service Worker deve cachear
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/script.js',
-  '/manifest.json',
-  '/images/icon-192x192.png',
-  '/images/icon-512x512.png'
+  '',
+  'index.html',
+  'style.css',
+  'script.js',
+  'manifest.json',
+  'images/icon-192x192.png',
+  'images/icon-512x512.png'
 ];
 
 // O evento 'install' é disparado quando o Service Worker é instalado
@@ -55,4 +55,5 @@ self.addEventListener('fetch', event => {
         return fetch(event.request);
       })
   );
+
 });

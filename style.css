@@ -236,6 +236,29 @@ form {
   font-size: 0.85rem;        /* texto menor */
 }
 
+#start-btn {
+  font-size: 1.5rem;        /* texto maior */
+  padding: 1.2rem 2.5rem;   /* botão mais largo e alto */
+  border-radius: 10px;
+  background-color: #ffeb3b;  /* amarelo vivo */
+  color: #222;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10); /* sombra para destaque */
+  margin: 2rem auto 0 auto;
+  display: block;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+
+#start-btn:hover,
+#start-btn:focus {
+  background-color: #ffe066;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.16);
+  transform: scale(1.04);
+}
+
+
 
 
 
